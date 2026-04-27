@@ -1,0 +1,35 @@
+id	parentId	type	text	options	target	signal
+START	null	start	Good evening. Let's reflect on your day.			
+A1_OPEN	START	question	How would you describe today?	Productive|Tough|Mixed|Frustrating		
+A1_DECIDE	A1_OPEN	decision		answer=Productive|Mixed:A1_HIGH;answer=Tough|Frustrating:A1_LOW		
+A1_HIGH	A1_DECIDE	question	What helped things go well today?	My effort|Team support|Luck|Adaptation		axis1:internal
+A1_LOW	A1_DECIDE	question	When things went wrong, what did you do?	Tried to control|Waited|Felt stuck|Ignored		axis1:external
+A1_REF_INT	A1_HIGH	reflection	You saw your role in what worked. That's a sign of agency.			axis1:internal
+A1_REF_EXT	A1_LOW	reflection	It felt outside your control, but notice even small choices you made.			axis1:external
+BRIDGE1	A1_REF_INT	bridge	Now let's shift from how things happened to what you contributed.		A2_OPEN	
+BRIDGE1B	A1_REF_EXT	bridge	Now let's shift from how things happened to what you contributed.		A2_OPEN	
+
+A2_OPEN	BRIDGE1	question	Think about today — what stands out?	I helped someone|I expected recognition|I did extra work|I felt ignored		
+A2_OPEN_B	BRIDGE1B	question	Think about today — what stands out?	I helped someone|I expected recognition|I did extra work|I felt ignored		
+A2_DECIDE	A2_OPEN	decision		answer=I helped someone|I did extra work:A2_CONTRI;answer=I expected recognition|I felt ignored:A2_ENT		
+A2_DECIDE_B	A2_OPEN_B	decision		answer=I helped someone|I did extra work:A2_CONTRI;answer=I expected recognition|I felt ignored:A2_ENT		
+A2_CONTRI	A2_DECIDE	question	What kind of contribution did you make?	Helped teammate|Improved work|Shared knowledge|Took initiative		axis2:contribution
+A2_ENT	A2_DECIDE	question	What did you expect from others?	Praise|Support|Recognition|Less work		axis2:entitlement
+A2_REF_CON	A2_CONTRI	reflection	You focused on giving value. That builds trust and growth.			axis2:contribution
+A2_REF_ENT	A2_ENT	reflection	Expectations are natural, but shifting toward contribution can change outcomes.			axis2:entitlement
+BRIDGE2	A2_REF_CON	bridge	Now let's expand your perspective beyond yourself.		A3_OPEN	
+BRIDGE2B	A2_REF_ENT	bridge	Now let's expand your perspective beyond yourself.		A3_OPEN	
+
+A3_OPEN	BRIDGE2	question	Who did you think about most today?	Myself|My team|A colleague|Customer		
+A3_OPEN_B	BRIDGE2B	question	Who did you think about most today?	Myself|My team|A colleague|Customer		
+A3_DECIDE	A3_OPEN	decision		answer=Myself:A3_SELF;answer=My team|A colleague|Customer:A3_OTHER		
+A3_DECIDE_B	A3_OPEN_B	decision		answer=Myself:A3_SELF;answer=My team|A colleague|Customer:A3_OTHER		
+A3_SELF	A3_DECIDE	question	What was your main concern?	My work|My stress|My goals|My performance		axis3:self
+A3_OTHER	A3_DECIDE	question	What mattered most to others?	Team success|Helping colleague|Customer value|Shared goal		axis3:other
+A3_REF_SELF	A3_SELF	reflection	Your focus was inward. Expanding your view can bring more meaning.			axis3:self
+A3_REF_OTHER	A3_OTHER	reflection	You considered others. That creates impact beyond yourself.			axis3:other
+
+SUMMARY	A3_REF_SELF	summary	Today you showed reflection across your actions, contributions, and perspective.			
+SUMMARY_B	A3_REF_OTHER	summary	Today you showed reflection across your actions, contributions, and perspective.			
+END	SUMMARY	end	Good job reflecting. See you tomorrow.			
+END_B	SUMMARY_B	end	Good job reflecting. See you tomorrow.			
